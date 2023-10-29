@@ -1,53 +1,55 @@
-markdown
-Copy code
+# Tên Dự án
 
-# Tên Dự Án
+Mô tả ngắn về dự án của bạn và mục tiêu chính.
 
-Dự án mô tả ngắn về nội dung và mục tiêu của dự án.
+### Yêu cầu
 
-## Cài Đặt
+- Python (phiên bản X.X.X)
+- pip (phiên bản X.X.X)
 
-### Sử dụng `pip`:
+### Bước 1: Cài đặt môi trường ảo (venv)
 
-```bash
-pip install ten-du-an
-Hoặc cài đặt từ mã nguồn
-Clone dự án từ GitHub:
+1. Mở terminal và di chuyển vào thư mục gốc của dự án.
+2. Tạo môi trường ảo bằng cách chạy lệnh sau:
 
-bash
-Copy code
-git clone https://github.com/ten-du-an.git
-Di chuyển vào thư mục dự án:
+   ```shell
+   python -m venv venv
+   ```
 
-bash
-Copy code
-cd ten-du-an
-Cài đặt các dependencies:
+3. Kích hoạt môi trường ảo:
 
-bash
-Copy code
-pip install -r requirements.txt
-Sử Dụng
-(Thêm hướng dẫn ngắn về cách sử dụng dự án của bạn)
+- Trên Windows:
 
-Đóng Góp
-Rất hoan nghênh các đóng góp vào dự án. Vui lòng xem CONTRIBUTING.md để biết thêm chi tiết.
+  ```shell
+  venv\Scripts\activate
 
-Giấy Phép
-Dự án này được phân phối dưới giấy phép MIT. Xem LICENSE để biết thêm chi tiết.
+  ```
 
-Liên Hệ
-Nếu bạn có bất kỳ câu hỏi hoặc ý kiến đóng góp, xin vui lòng liên hệ chúng tôi qua email: example@example.com
+- Trên macOS và Linux:
 
-css
-Copy code
+  ```shell
+  source venv/bin/activate
+  ```
 
-Lưu ý rằng đây chỉ là một phiên bản gọn lại, bạn nên điều chỉnh nội dung để phản ánh đúng thông tin về dự án của bạn.
+### Bước 2: Cài đặt yêu cầu
 
+1. Trong môi trường ảo đã kích hoạt, chạy lệnh sau để cài đặt các yêu cầu:
+   ```shell
+   pip install -r requirements.txt
+   ```
 
+Đảm bảo rằng bạn đang ở trong thư mục chứa tệp `requirements.txt`.
 
-Is this conversation helpful so far?
+2. Hoàn tất! Bây giờ bạn đã thiết lập dự án thành công và đã cài đặt các yêu cầu cần thiết.
 
+### Sử dụng
 
+Hướng dẫn cách sử dụng dự án của bạn. Bao gồm các ví dụ và các hướng dẫn cơ bản để người dùng có thể bắt đầu làm việc với dự án một cách nhanh chóng.
 
-```
+### Đóng góp
+
+Hướng dẫn cho người dùng về cách đóng góp vào dự án. Bao gồm quy tắc và quy định đóng góp, cách tạo yêu cầu kéo (pull request) và các hướng dẫn về việc kiểm tra và chạy kiểm thử.
+
+### Liên hệ
+
+Cung cấp thông tin liên hệ để người dùng có thể liên hệ với bạn về các vấn đề, câu hỏi hoặc đề xuất liên quan đến dự án.
