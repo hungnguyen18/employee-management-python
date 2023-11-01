@@ -10,8 +10,12 @@ class MainScreen:
     def __init__(self, master):
         self.master = master
         # TODO: Xây dựng giao diện màn hình chính ở đây
-        self.tabView = tk.CTkTabview(self.master)
-        self.tabView.pack(padx=20, pady=20, fill=tk.BOTH)
+        self.tabView = tk.CTkTabview(self.master, height=700)
+        self.tabView.pack(
+            padx=20,
+            pady=20,
+            fill=tk.BOTH,
+        )
         self.tabView.add("Employees")
         self.tabView.add("Department")
 
