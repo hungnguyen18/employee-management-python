@@ -29,12 +29,15 @@ def login_success_callback():
     global main_screen
     app = tk.CTk()
     app.geometry("1280x720")
+    app.grid_rowconfigure(0, weight=1)  # configure grid system
+    app.grid_columnconfigure(0, weight=1)
     main_screen = MainScreen(app)
     main_screen.show()
 
 
 if __name__ == "__main__":
-    app = tk.CTk()
-    app.geometry("800x600")
-    auth_screen = AuthScreen(app, login_success_callback)
-    app.mainloop()
+    # app = tk.CTk()
+    # app.geometry("800x600")
+    # auth_screen = AuthScreen(app, login_success_callback)
+    # app.mainloop()
+    login_success_callback()
