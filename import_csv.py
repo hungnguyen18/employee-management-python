@@ -16,7 +16,7 @@ def open_file_dialog():
 
 def import_from_csv(filename):
     data = []
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         reader = csv.reader(file)
         for row in reader:
             data.append(row)
