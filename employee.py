@@ -2,7 +2,9 @@ import customtkinter
 from tkinter import ttk
 import database
 import create_entry
+from message_box import message_box
 
+namespace = "employees"
 ctk = customtkinter
 db = database.firebase.database()
 
@@ -14,14 +16,18 @@ class Employees:
 
         self.id_val = ctk.StringVar()
         self.id_entry = create_entry.create_entry_with_label(
-            tab_view, 1, "Id:", "Id", self.id_val
+            tab_view,
+            1,
+            "Id:",
+            "Id",
+            self.id_val,
+            "disabled",
         )
 
         self.clear_button = ctk.CTkButton(
             tab_view,
             width=200,
             text="Clear fields",
-            fg_color="red",
             command=lambda: self.clear_entry_fields(),
         )
         self.clear_button.grid(
@@ -62,15 +68,25 @@ class Employees:
         )
         self.update_button.grid(row=6, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
+        self.remove_button = ctk.CTkButton(
+            tab_view,
+            width=200,
+            text="Remove",
+            fg_color="red",
+            command=lambda: self.remove(),
+        )
+        self.remove_button.grid(row=7, column=0, padx=20, pady=(20, 0), sticky="nsew")
+
         self.filter_button = ctk.CTkButton(
             tab_view, width=200, text="Filter", command=lambda: self.clear_tree()
         )
-        self.filter_button.grid(row=7, column=0, padx=20, pady=(20, 0), sticky="nsew")
+        self.filter_button.grid(row=7, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
-        self.export_button = ctk.CTkButton(
-            tab_view, width=200, text="Export", command=lambda: self.get()
-        )
-        self.export_button.grid(row=7, column=1, padx=20, pady=(20, 0), sticky="nsew")
+        self.import_button = ctk.CTkButton(tab_view, width=200, text="Import")
+        self.import_button.grid(row=8, column=0, padx=20, pady=(20, 0), sticky="nsew")
+
+        self.export_button = ctk.CTkButton(tab_view, width=200, text="Export")
+        self.export_button.grid(row=8, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
         self.headings = [
             "Id",
@@ -107,20 +123,22 @@ class Employees:
 
     def get(self):
         result = []
-        employees = db.child("employees").get()
+        employees = db.child(namespace).get()
         print(employees)
         if not employees:
             return result
         for employee in employees.each():
+            print(employee.val())
             result.append(
                 (
-                    employee.val()["id"],
+                    employee.key(),
                     employee.val()["name"],
                     employee.val()["phone"],
                     employee.val()["salary"],
                     employee.val()["department"],
                 )
             )
+
         return result
 
     def insert(self):
@@ -132,18 +150,8 @@ class Employees:
             "salary": self.salary_entry.get(),
             "department": self.department_entry.get(),
         }
-        db.child("employees").child(index).set(data)
-        self.tree.insert(
-            "",
-            ctk.END,
-            values=(
-                index,
-                self.name_entry.get(),
-                self.phone_entry.get(),
-                self.salary_entry.get(),
-                self.department_entry.get(),
-            ),
-        )
+        db.child(namespace).child(index).set(data)
+        self.populate_treeview()
 
     def update(self):
         data = {
@@ -153,15 +161,24 @@ class Employees:
             "salary": self.salary_entry.get(),
             "department": self.department_entry.get(),
         }
-        db.child("employees").child(data["id"]).update(data)
-        print(data)
+        db.child(namespace).child(data["id"]).update(data)
+        self.populate_treeview()
+
+    def remove(self):
+        def confirm():
+            db.child(namespace).child(self.id_entry.get()).remove()
+            self.clear_entry_fields()
+            self.populate_treeview()
+
+        def cancel():
+            print("Cancel")
+
+        message_box(confirm, cancel)
 
     def populate_treeview(self):
+        self.tree.delete(*self.tree.get_children())
         for item in self.get():
             self.tree.insert("", ctk.END, values=item)
-
-    def clear_tree(self):
-        self.tree.delete(*self.tree.get_children())
 
     def clear_entry_fields(self):
         self.id_val.set("")
