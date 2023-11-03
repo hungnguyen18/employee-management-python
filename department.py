@@ -8,12 +8,12 @@ from export_csv import export_to_csv
 from import_csv import import_from_csv, open_file_dialog
 
 
-namespace = "employees"
+namespace = "departments"
 ctk = customtkinter
 db = database.firebase.database()
 
 
-class Employees:
+class Department:
     def __init__(self, master, tab_view):
         self.master = master
         self.tab_view = tab_view
@@ -51,21 +51,6 @@ class Employees:
         self.name_val = ctk.StringVar()
         self.name_entry = create_entry.create_entry_with_label(
             tab_view, 4, "Name:", "Name", self.name_val
-        )
-
-        self.phone_val = ctk.StringVar()
-        self.phone_entry = create_entry.create_entry_with_label(
-            tab_view, 5, "Phone:", "Phone", self.phone_val
-        )
-
-        self.salary_val = ctk.StringVar()
-        self.salary_entry = create_entry.create_entry_with_label(
-            tab_view, 6, "Salary:", "Salary", self.salary_val
-        )
-
-        self.department_val = ctk.StringVar()
-        self.department_entry = create_entry.create_entry_with_label(
-            tab_view, 7, "Department:", "Department", self.department_val
         )
 
         self.create_button = ctk.CTkButton(
@@ -109,9 +94,6 @@ class Employees:
         self.headings = [
             "Id",
             "Name",
-            "Phone",
-            "Salary",
-            "Department",
         ]
 
         self.tree = ttk.Treeview(
@@ -131,11 +113,8 @@ class Employees:
                 value = item["values"]
                 print(value)
                 self.idx_val.set(value[0])
-                self.id_val.set(value[5])
+                self.id_val.set(value[2])
                 self.name_val.set(value[1])
-                self.phone_val.set(value[2])
-                self.salary_val.set(value[3])
-                self.department_val.set(value[4])
 
         self.tree.bind("<<TreeviewSelect>>", item_selected)
         self.tree.grid(row=0, column=2, rowspan=100)
@@ -149,9 +128,6 @@ class Employees:
                 emp_tuple = (
                     emp_data.get("id"),
                     emp_data.get("name"),
-                    emp_data.get("phone"),
-                    emp_data.get("salary"),
-                    emp_data.get("department"),
                     employee.key(),
                 )
                 result.append(emp_tuple)
@@ -166,9 +142,6 @@ class Employees:
         data = {
             "id": index,
             "name": self.name_entry.get(),
-            "phone": self.phone_entry.get(),
-            "salary": self.salary_entry.get(),
-            "department": self.department_entry.get(),
         }
         try:
             db.child(namespace).push(data)
@@ -181,9 +154,6 @@ class Employees:
         data = {
             "id": self.idx_entry.get(),
             "name": self.name_entry.get(),
-            "phone": self.phone_entry.get(),
-            "salary": self.salary_entry.get(),
-            "department": self.department_entry.get(),
         }
         try:
             db.child(namespace).child(self.id_val.get()).update(data)
@@ -239,12 +209,12 @@ class Employees:
             print("No file selected.")
 
     def get_options(self):
-        crop_key = [item[4] for item in self.get()]
+        crop_key = [item[1] for item in self.get()]
         return list(set(crop_key))
 
     def optionmenu_callback(self, choice):
         print("optionmenu dropdown clicked:", choice)
-        filtered_keys = [item for item in self.get() if item[4] == choice]
+        filtered_keys = [item for item in self.get() if item[1] == choice]
         self.tree.delete(*self.tree.get_children())
         for item in filtered_keys:
             self.tree.insert("", ctk.END, values=item)
@@ -253,6 +223,3 @@ class Employees:
         self.idx_val.set("")
         self.id_val.set("")
         self.name_val.set("")
-        self.phone_val.set("")
-        self.salary_val.set("")
-        self.department_val.set("")

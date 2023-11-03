@@ -1,6 +1,7 @@
 import customtkinter
 from auth import AuthScreen
 from employee import Employees
+from department import Department
 
 tk = customtkinter
 main_screen = None
@@ -20,6 +21,7 @@ class MainScreen:
         self.tabView.add("Department")
 
         Employees(self.master, self.tabView.tab("Employees"))
+        Department(self.master, self.tabView.tab("Department"))
 
     def show(self):
         self.master.mainloop()
@@ -28,7 +30,7 @@ class MainScreen:
 def login_success_callback():
     global main_screen
     app = tk.CTk()
-    app.geometry("1500x720")
+    app.geometry("1500x800")
     app.grid_rowconfigure(0, weight=1)  # configure grid system
     app.grid_columnconfigure(0, weight=1)
     main_screen = MainScreen(app)
@@ -36,8 +38,8 @@ def login_success_callback():
 
 
 if __name__ == "__main__":
-    app = tk.CTk()
-    app.geometry("800x600")
-    auth_screen = AuthScreen(app, login_success_callback)
-    app.mainloop()
-    # login_success_callback()
+    # app = tk.CTk()
+    # app.geometry("800x600")
+    # auth_screen = AuthScreen(app, login_success_callback)
+    # app.mainloop()
+    login_success_callback()
