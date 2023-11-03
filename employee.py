@@ -3,6 +3,9 @@ from tkinter import ttk
 import database
 import create_entry
 from message_box import message_box
+import tkinter.messagebox as messagebox
+from export_csv import export_to_csv
+
 
 namespace = "employees"
 ctk = customtkinter
@@ -85,7 +88,9 @@ class Employees:
         self.import_button = ctk.CTkButton(tab_view, width=200, text="Import")
         self.import_button.grid(row=8, column=0, padx=20, pady=(20, 0), sticky="nsew")
 
-        self.export_button = ctk.CTkButton(tab_view, width=200, text="Export")
+        self.export_button = ctk.CTkButton(
+            tab_view, width=200, text="Export", command=lambda: self.export()
+        )
         self.export_button.grid(row=8, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
         self.headings = [
@@ -150,8 +155,12 @@ class Employees:
             "salary": self.salary_entry.get(),
             "department": self.department_entry.get(),
         }
-        db.child(namespace).child(index).set(data)
-        self.populate_treeview()
+        try:
+            db.child(namespace).child(index).set(data)
+            self.populate_treeview()
+            messagebox.showinfo(title="Successfully", message="Insert Successfully")
+        except:
+            messagebox.showerror(title="Fail", message="Insert failed")
 
     def update(self):
         data = {
@@ -161,8 +170,12 @@ class Employees:
             "salary": self.salary_entry.get(),
             "department": self.department_entry.get(),
         }
-        db.child(namespace).child(data["id"]).update(data)
-        self.populate_treeview()
+        try:
+            db.child(namespace).child(data["id"]).update(data)
+            self.populate_treeview()
+            messagebox.showinfo(title="Successfully", message="Update Successfully")
+        except:
+            messagebox.showerror(title="Fail", message="Update failed")
 
     def remove(self):
         def confirm():
@@ -179,6 +192,12 @@ class Employees:
         self.tree.delete(*self.tree.get_children())
         for item in self.get():
             self.tree.insert("", ctk.END, values=item)
+
+    def export(self):
+        # Example data
+        self.data = [self.headings] + [list(item) for item in self.get()]
+        # Export data to CSV file
+        export_to_csv(self.data)
 
     def clear_entry_fields(self):
         self.id_val.set("")
