@@ -5,6 +5,7 @@ import create_entry
 from message_box import message_box
 import tkinter.messagebox as messagebox
 from export_csv import export_to_csv
+from import_csv import import_from_csv, open_file_dialog
 
 
 namespace = "employees"
@@ -85,7 +86,9 @@ class Employees:
         )
         self.filter_button.grid(row=7, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
-        self.import_button = ctk.CTkButton(tab_view, width=200, text="Import")
+        self.import_button = ctk.CTkButton(
+            tab_view, width=200, text="Import", command=lambda: self.import_data()
+        )
         self.import_button.grid(row=8, column=0, padx=20, pady=(20, 0), sticky="nsew")
 
         self.export_button = ctk.CTkButton(
@@ -194,10 +197,28 @@ class Employees:
             self.tree.insert("", ctk.END, values=item)
 
     def export(self):
-        # Example data
         self.data = [self.headings] + [list(item) for item in self.get()]
-        # Export data to CSV file
         export_to_csv(self.data)
+
+    def import_data(self):
+        # Example usage
+        file_path = open_file_dialog()
+        if file_path:
+            data = import_from_csv(file_path)
+            print("Imported data:")
+            keys = [key.lower() for key in data[0]]
+            result = [
+                {keys[i]: value for i, value in enumerate(row)} for row in data[1:]
+            ]
+
+            db.child(namespace).remove()
+            for idx, row in enumerate(result):
+                db.child(namespace).child(idx).set(row)
+            self.populate_treeview()
+            messagebox.showinfo(title="Successfully", message="Import Successfully")
+
+        else:
+            print("No file selected.")
 
     def clear_entry_fields(self):
         self.id_val.set("")
