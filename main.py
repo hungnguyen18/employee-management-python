@@ -36,8 +36,8 @@ def login_success_callback():
 
 
 if __name__ == "__main__":
-    # app = tk.CTk()
-    # app.geometry("800x600")
-    # auth_screen = AuthScreen(app, login_success_callback)
-    # app.mainloop()
-    login_success_callback()
+    app = tk.CTk()
+    app.geometry("800x600")
+    auth_screen = AuthScreen(app, login_success_callback)
+    app.mainloop()
+    # login_success_callback()
