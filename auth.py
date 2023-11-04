@@ -17,11 +17,8 @@ class AuthScreen:
             text="Username",
             width=80,
             height=35,
-            text_color="black",
-            corner_radius=10,
-            fg_color=("black", "white"),
         )
-        self.username_label.place(relx=0.35, rely=0.3, anchor=tk.CENTER)
+        self.username_label.grid(row=0, column=0, padx=20, pady=(20, 0), sticky="w")
         self.username_entry = tk.CTkEntry(
             master=self.master,
             placeholder_text="Username",
@@ -30,18 +27,15 @@ class AuthScreen:
             border_width=2,
             corner_radius=10,
         )
-        self.username_entry.place(relx=0.6, rely=0.3, anchor=tk.CENTER)
+        self.username_entry.grid(row=0, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
         self.password_label = tk.CTkLabel(
             master=self.master,
             text="Password",
             width=80,
             height=35,
-            text_color="black",
-            corner_radius=10,
-            fg_color=("black", "white"),
         )
-        self.password_label.place(relx=0.35, rely=0.4, anchor=tk.CENTER)
+        self.password_label.grid(row=1, column=0, padx=20, pady=(20, 0), sticky="w")
         self.password_entry = tk.CTkEntry(
             master=self.master,
             placeholder_text="Password",
@@ -49,8 +43,9 @@ class AuthScreen:
             height=35,
             border_width=2,
             corner_radius=10,
+            show="*",
         )
-        self.password_entry.place(relx=0.6, rely=0.4, anchor=tk.CENTER)
+        self.password_entry.grid(row=1, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
         self.login_btn = tk.CTkButton(
             master=self.master,
@@ -61,7 +56,7 @@ class AuthScreen:
             text="Login",
             command=self.login_task,
         )
-        self.login_btn.place(relx=0.55, rely=0.5, anchor=tk.CENTER)
+        self.login_btn.grid(row=2, column=1, padx=20, pady=(20, 0), sticky="nsew")
 
     def login_task(self):
         email = self.username_entry.get()

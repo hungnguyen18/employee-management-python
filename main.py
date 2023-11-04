@@ -33,15 +33,23 @@ def login_success_callback():
     global main_screen
     app = tk.CTk()
     app.geometry("1500x800")
-    app.grid_rowconfigure(0, weight=1)  # configure grid system
+    app.grid_rowconfigure(0, weight=1)
     app.grid_columnconfigure(0, weight=1)
     main_screen = MainScreen(app)
     main_screen.show()
 
 
 if __name__ == "__main__":
-    # app = tk.CTk()
-    # app.geometry("800x600")
-    # auth_screen = AuthScreen(app, login_success_callback)
-    # app.mainloop()
-    login_success_callback()
+    app = tk.CTk()
+    # Get the screen width and height
+    screen_width = app.winfo_screenwidth()
+    screen_height = app.winfo_screenheight()
+
+    # Calculate the x and y coordinates for the centered window
+    x = (screen_width // 2) - (400 // 2)  # Width of the window is set to 400
+    y = (screen_height // 2) - (200 // 2)  # Height of the window is set to 200
+    app.geometry(f"400x200+{x}+{y}")
+    app.title = "LOGIN"
+    auth_screen = AuthScreen(app, login_success_callback)
+    app.mainloop()
+    # login_success_callback()

@@ -1,11 +1,16 @@
-# Tên Dự án
+# Quản lý nhân sự
 
-Mô tả ngắn về dự án của bạn và mục tiêu chính.
+Quản lý nhân viên và phòng ban
+
+### Công nghệ
+
+- Gui: customtkinter, tkinter
+- Database: firebase
 
 ### Yêu cầu
 
-- Python (phiên bản X.X.X)
-- pip (phiên bản X.X.X)
+- Python (phiên bản 3.X.X trở)
+- pip (phiên bản 2.31.X trở lên)
 
 ### Bước 1: Cài đặt môi trường ảo (venv)
 
@@ -44,11 +49,19 @@ Mô tả ngắn về dự án của bạn và mục tiêu chính.
 
 ### Sử dụng
 
-- Hướng dẫn cách sử dụng dự án của bạn. Bao gồm các ví dụ và các hướng dẫn cơ bản để người dùng có thể bắt đầu làm việc với dự án một cách nhanh chóng.
+- Login:
+  - username:
+  ```shell
+  admin@gmail.com
+  ```
+  - password:
+  ```shell
+  123456
+  ```
 
 ### Đóng góp
 
-- Hướng dẫn cho người dùng về cách đóng góp vào dự án. Bao gồm quy tắc và quy định đóng góp, cách tạo yêu cầu kéo (pull request) và các hướng dẫn về việc kiểm tra và chạy kiểm thử.
+- [@hungnguye18](https://github.com/hungnguyen18)
 
 ### Liên hệ
 
