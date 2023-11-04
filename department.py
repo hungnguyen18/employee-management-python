@@ -6,6 +6,7 @@ from message_box import message_box
 import tkinter.messagebox as messagebox
 from export_csv import export_to_csv
 from import_csv import import_from_csv, open_file_dialog
+from chart import draw_chart
 
 
 namespace = "departments"
@@ -90,6 +91,11 @@ class Department:
             tab_view, width=200, text="Export", command=lambda: self.export()
         )
         self.export_button.grid(row=10, column=1, padx=20, pady=(20, 0), sticky="nsew")
+
+        self.chart_button = ctk.CTkButton(
+            tab_view, width=200, text="Chart", command=lambda: draw_chart()
+        )
+        self.chart_button.grid(row=11, column=0, padx=20, pady=(20, 0), sticky="nsew")
 
         self.headings = [
             "Id",

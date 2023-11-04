@@ -2,6 +2,7 @@ import customtkinter
 from auth import AuthScreen
 from employee import Employees
 from department import Department
+from chart import draw_chart
 
 tk = customtkinter
 main_screen = None
@@ -22,6 +23,7 @@ class MainScreen:
 
         Employees(self.master, self.tabView.tab("Employees"))
         Department(self.master, self.tabView.tab("Department"))
+        # draw_chart()
 
     def show(self):
         self.master.mainloop()

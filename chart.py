@@ -1,25 +1,47 @@
 import matplotlib.pyplot as plt
+import tkinter.messagebox as messagebox
+import database
+
+
+db = database.firebase.database()
 
 
 def draw_chart():
-    # x-coordinates of left sides of bars
-    left = [1, 2, 3, 4, 5]
+    try:
+        fig, ax = plt.subplots()
+        get_employees = db.child("employees").get()
+        employees = []
+        for employee in get_employees.each():
+            emp_data = employee.val()
+            emp_tuple = {
+                "id": emp_data.get("id"),
+                "name": emp_data.get("name"),
+                "phone": emp_data.get("phone"),
+                "salary": emp_data.get("salary"),
+                "department": emp_data.get("department"),
+            }
+            employees.append(emp_tuple)
 
-    # heights of bars
-    height = [10, 24, 36, 40, 5]
+        department_counts = {}
+        for employee in employees:
+            department = employee["department"]
+            if department in department_counts:
+                department_counts[department] += 1
+            else:
+                department_counts[department] = 1
 
-    # labels for bars
-    tick_label = ["one", "two", "three", "four", "five"]
+        department_list = list(department_counts.keys())
+        count_list = list(department_counts.values())
 
-    # plotting a bar chart
-    plt.bar(left, height, tick_label=tick_label, width=0.8, color=["red", "green"])
+        department = department_list
+        counts = count_list
 
-    # naming the x-axis
-    plt.xlabel("x - axis")
-    # naming the y-axis
-    plt.ylabel("y - axis")
-    # plot title
-    plt.title("My bar chart!")
+        ax.bar(department, counts)
 
-    # function to show the plot
-    plt.show()
+        ax.set_ylabel("Số lượng nhân viên")
+        ax.set_title("Tổng số lượng nhân viên trong phòng ban")
+
+        plt.show()
+    except:
+        messagebox.showerror(title="Error", message="No data")
+        return
