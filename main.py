@@ -41,15 +41,15 @@ def login_success_callback():
 
 if __name__ == "__main__":
     app = tk.CTk()
-    # Get the screen width and height
-    screen_width = app.winfo_screenwidth()
-    screen_height = app.winfo_screenheight()
+    # # Get the screen width and height
+    # screen_width = app.winfo_screenwidth()
+    # screen_height = app.winfo_screenheight()
 
-    # Calculate the x and y coordinates for the centered window
-    x = (screen_width // 2) - (400 // 2)  # Width of the window is set to 400
-    y = (screen_height // 2) - (200 // 2)  # Height of the window is set to 200
-    app.geometry(f"400x200+{x}+{y}")
-    app.title = "LOGIN"
-    auth_screen = AuthScreen(app, login_success_callback)
-    app.mainloop()
-    # login_success_callback()
+    # # Calculate the x and y coordinates for the centered window
+    # x = (screen_width // 2) - (400 // 2)  # Width of the window is set to 400
+    # y = (screen_height // 2) - (200 // 2)  # Height of the window is set to 200
+    # app.geometry(f"400x200")
+    # app.title = "LOGIN"
+    # auth_screen = AuthScreen(app, login_success_callback)
+    # app.mainloop()
+    login_success_callback()
