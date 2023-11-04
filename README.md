@@ -61,8 +61,7 @@ Quản lý nhân viên và phòng ban
 
 ### Đóng góp
 
-- [@hungnguye18](https://github.com/hungnguyen18)
-
+- https://github.com/hungnguyen18/employee-management-python/graphs/contributors
 ### Liên hệ
 
 - Cung cấp thông tin liên hệ để người dùng có thể liên hệ với bạn về các vấn đề, câu hỏi hoặc đề xuất liên quan đến dự án.
